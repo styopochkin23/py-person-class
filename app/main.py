@@ -7,16 +7,13 @@ class Person:
 
 
 def create_person_list(people: list) -> list:
-    person_object = []
-    for person in people:
-        p = Person(person["name"], person['age'])
-        person_object.append(p)
+    person_object = [Person(p['name'], p['age']) for p in people]
 
     for person in people:
         current = Person.people[person['name']]
-        if 'wife' in person and person['wife'] is not None:
-            current.wife = Person.people[person['wife']]
-        if 'husband' in person and person['husband'] is not None:
-            current.husband = Person.people[person['husband']]
+        if person.get('wife'):
+            current.wife = Person.people[person["wife"]]
+        if person.get('husband'):
+            current.husband = Person.people[person["husband"]]
 
     return person_object
